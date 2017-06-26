@@ -4,9 +4,9 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="531aebf2ace54bbe9ff5b3cec514efa1" Name="Diagram1">
+      <Diagram DiagramId="cc74767d85564922a8a91d95f2ed34bc" Name="Diagram1">
         <EntityTypeShape EntityType="ContosoUniversityModel.Department" Width="1.5" PointX="3" PointY="1.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="ContosoUniversityModel.Enrollment" Width="1.5" PointX="7.5" PointY="2" IsExpanded="true" />
+        <EntityTypeShape EntityType="ContosoUniversityModel.Enrollment" Width="1.5" PointX="7.5" PointY="1.875" IsExpanded="true" />
         <EntityTypeShape EntityType="ContosoUniversityModel.OfficeAssignment" Width="1.5" PointX="3" PointY="4.25" IsExpanded="true" />
         <EntityTypeShape EntityType="ContosoUniversityModel.Person" Width="1.5" PointX="0.75" PointY="2" IsExpanded="true" />
         <AssociationConnector Association="ContosoUniversityModel.FK_dbo_Department_dbo_Instructor_InstructorID" ManuallyRouted="false" />
@@ -16,7 +16,7 @@
         <AssociationConnector Association="ContosoUniversityModel.FK_dbo_Course_dbo_Department_DepartmentID" />
         <AssociationConnector Association="ContosoUniversityModel.FK_dbo_Enrollment_dbo_Course_CourseID" />
         <AssociationConnector Association="ContosoUniversityModel.CourseInstructor" />
-        </Diagram>
+      </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>

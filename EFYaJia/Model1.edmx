@@ -310,7 +310,7 @@
             <End Role="Course" EntitySet="Course" />
             <End Role="Person" EntitySet="Person" />
           </AssociationSet>
-          </EntityContainer>
+        </EntityContainer>
         <EntityType Name="Course">
           <Key>
             <PropertyRef Name="CourseID" />
@@ -355,7 +355,7 @@
           <End Type="ContosoUniversityModel.Course" Role="Course" Multiplicity="*" />
           <End Type="ContosoUniversityModel.Person" Role="Person" Multiplicity="*" />
         </Association>
-        </Schema>
+      </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -421,7 +421,7 @@
               <ScalarProperty Name="CourseID" ColumnName="CourseID" />
             </EndProperty>
           </AssociationSetMapping>
-          </EntityContainerMapping>
+        </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
   </edmx:Runtime>

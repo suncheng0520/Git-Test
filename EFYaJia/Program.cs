@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.Validation;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,22 +14,40 @@ namespace EFYaJia
             using (var db = new ContosoUniversityEntities())
             {
 
-                QueryData(db);
+                //QueryData(db);
 
                 //addNewRecord(db);
                 //update(db);
 
                 //db.Database.Log = (log) => { Console.WriteLine(log); };
 
-                foreach (var item in db.Course.Where(p=>p.CourseID>=12 && p.CourseID <=16).ToList())
+                //foreach (var item in db.Course.Where(p=>p.CourseID>=12 && p.CourseID <=16).ToList())
+                //{
+                //    db.Course.Remove(item);
+                //}
+                ///由課程去新增人員
+                var c = db.Course.Find(1);
+
+                c.Person.Add(new Person { FirstName = "Sam", LastName = "Walker", Discriminator = "123" });
+
+                ///由人員去新增課程
+                var p = db.Person.Find(31);
+
+                p.Course.Add(db.Course.Find(3));
+
+                try
                 {
-                    db.Course.Remove(item);
+                    db.SaveChanges();
+
+                }
+                catch (DbEntityValidationException ex)
+                {
+
+                    throw ex ;
                 }
 
-                db.SaveChanges();
 
-
-                QueryData(db);
+                //QueryData(db);
 
 
             }
