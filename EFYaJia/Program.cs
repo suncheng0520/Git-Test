@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EFYaJia.Models;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity.Validation;
 using System.Linq;
@@ -11,9 +12,8 @@ namespace EFYaJia
     {
         static void Main(string[] args)
         {
-            using (var db = new ContosoUniversityEntities())
+            using (var db = new Models.ContosoUniversityEntities())
             {
-
                 //QueryData(db);
 
                 //addNewRecord(db);
@@ -25,26 +25,48 @@ namespace EFYaJia
                 //{
                 //    db.Course.Remove(item);
                 //}
-                ///由課程去新增人員
+
+                //多對多關聯CRUD(db);
                 var c = db.Course.Find(1);
 
-                c.Person.Add(new Person { FirstName = "Sam", LastName = "Walker", Discriminator = "123" });
+                Console.WriteLine(db.Entry(c).State);
+                
+                c.Credit++;
 
-                ///由人員去新增課程
-                var p = db.Person.Find(31);
-
-                p.Course.Add(db.Course.Find(3));
-
-                try
+                Console.WriteLine(db.Entry(c).State);
+                var ce = db.Entry(c);
+                Console.WriteLine("修改前: " + ce.OriginalValues.GetValue<int>("Credit"));
+                Console.WriteLine("修改後: " + ce.CurrentValues.GetValue<int>("Credit"));
+                
+                var cc = new Course()
                 {
-                    db.SaveChanges();
+                    Title = "Hello 2",
+                    Department = db.Department.Find(5)
+                 };
+                db.Course.Add(cc);
+                
+                var ce2 = db.Entry(cc);
+                
+                if (ce2.State == System.Data.Entity.EntityState.Added)
 
-                }
-                catch (DbEntityValidationException ex)
                 {
-
-                    throw ex ;
+                    ce.Entity.Credit++;
                 }
+
+                db.SaveChanges();
+                
+                Console.WriteLine(db.Entry(c).State);
+                Console.WriteLine(ce2.State);
+                //try
+                //{
+                //    db.SaveChanges();
+
+                //}
+                //catch (DbEntityValidationException ex)
+                //{
+
+                //    throw ex;
+                //}
 
 
                 //QueryData(db);
@@ -53,15 +75,33 @@ namespace EFYaJia
             }
         }
 
-        private static void update(ContosoUniversityEntities db)
+        private static void 多對多關聯CRUD(Models.ContosoUniversityEntities db)
+        {
+            var c = db.Course.Find(1);
+            ///由課程去新增一個新的人員
+            c.Person.Add(new Person { FirstName = "Sam", LastName = "Walker", Discriminator = "123" });
+            ///由課程去新增一個現有的人員
+            c.Person.Add(db.Person.Find(3));
+            ///由課程去剔除一個現有的人員
+            c.Person.Remove(db.Person.Find(3));
+
+            db.Person.Remove(db.Person.Find(3));
+
+            ///由人員去新增一個現有課程
+            var p = db.Person.Find(31);
+
+            p.Course.Add(db.Course.Find(3));
+        }
+
+        private static void update(Models.ContosoUniversityEntities db)
         {
             foreach (var item in db.Course.ToList())
             {
-                item.Credit += 3;
+                item.Credit  = 3;
             }
         }
 
-        private static void addNewRecord(ContosoUniversityEntities db)
+        private static void addNewRecord(Models.ContosoUniversityEntities db)
         {
             db.Course.Add(new Course()
             {
@@ -70,7 +110,7 @@ namespace EFYaJia
             });
         }
 
-        private static void QueryData(ContosoUniversityEntities db)
+        private static void QueryData(Models.ContosoUniversityEntities db)
         {
             var depts = db.Department.ToList();
 

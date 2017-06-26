@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace EFYaJia
+namespace EFYaJia.Models
 {
     using System;
     using System.Data.Entity;
